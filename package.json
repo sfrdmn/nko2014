@@ -1,0 +1,19 @@
+{
+  "name": "nko4-cool-ladies-gif",
+  "version": "0.0.0",
+  "description": "LOVELY_BOYS.GIF",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:nko4/cool-ladies-gif.git"
+  },
+  "dependencies": {
+    "nko": "*"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
