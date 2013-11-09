@@ -3,7 +3,7 @@ var audio = require('voxel-audio')
 function GameAudio(game) {
   audio.initGameAudio(game)
   var bg = new audio.PositionAudio({
-    url: './audio/piano.ogg',
+    url: './sound/piano.ogg',
     startingPosition: [0, 0, 0],
     coneOuterAngle : 360,
     coneInnerAngle : 360,
