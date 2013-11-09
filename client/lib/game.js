@@ -4,6 +4,7 @@ var tic = require('tic')()
 var requestAnimationFrame = require('raf')
 var inherits = require('util').inherits
 var EventEmitter = require('events').EventEmitter
+var Stats = require('./stats.js')
 // var glMatrix = require('gl-matrix')
 // var vector = glMatrix.vec3
 var THREE = require('three')
@@ -121,7 +122,7 @@ Game.prototype.initializeTimer = function(rate) {
 Game.prototype.initializeRendering = function(opts) {
   var self = this
 
-  //if (!opts.statsDisabled) self.addStats()
+  if (!opts.statsDisabled) self.addStats()
 
   window.addEventListener('resize', self.onWindowResize.bind(self), false)
 
@@ -130,11 +131,11 @@ Game.prototype.initializeRendering = function(opts) {
     self.render(dt)
     self.emit('postrender', dt)
   })
-  // if (typeof stats !== 'undefined') {
-  //   self.on('postrender', function() {
-  //     stats.update()
-  //   })
-  // }
+  if (typeof stats !== 'undefined') {
+    self.on('postrender', function() {
+      stats.update()
+    })
+  }
 }
 
 Game.prototype.onWindowResize = function() {
@@ -145,6 +146,13 @@ Game.prototype.onWindowResize = function() {
     height = this.container.clientHeight
   }
   this.view.resizeWindow(width, height)
+}
+
+Game.prototype.addStats = function() {
+  stats = new Stats()
+  stats.domElement.style.position  = 'absolute'
+  stats.domElement.style.bottom  = '0px'
+  document.body.appendChild( stats.domElement )
 }
 
 Game.prototype.appendTo = function (element) {
