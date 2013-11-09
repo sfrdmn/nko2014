@@ -24,7 +24,10 @@
   "dependencies": {
     "browserify": "~2.35.1",
     "tic": "~0.2.1",
-    "raf": "0.0.3"
+    "raf": "0.0.3",
+    "voxel-audio": "https://github.com/sfrdmn/voxel-audio/tarball/master",
+    "gl-matrix": "~2.0.0",
+    "three": "~0.58.10"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",

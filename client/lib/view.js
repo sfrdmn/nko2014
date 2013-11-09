@@ -8,7 +8,7 @@ var THREE
 function View(three, opts) {
   opts = opts || {}
   THREE = three || THREE_
-  this.fov = opts.fov || 60
+  this.fov = opts.fov || 45
   this.width = opts.width || window.innerWidth
   this.height = opts.height ||  window.innerHeight
   this.aspectRatio = opts.aspectRatio || this.width / this.height
@@ -19,6 +19,7 @@ function View(three, opts) {
   this.camera = this.ortho
       ? (new THREE.OrthographicCamera(this.width/-2, this.width/2, this.height/2, this.height/-2, this.nearPlane, this.farPlane))
       : (new THREE.PerspectiveCamera(this.fov, this.aspectRatio, this.nearPlane, this.farPlane))
+  this.camera.position = opts.position || new THREE.Vector3()
   this.camera.lookAt(new THREE.Vector3(0, 0, 0))
 
   // if (!process.browser) return
@@ -32,7 +33,7 @@ View.prototype.createRenderer = function(opts) {
   opts.antialias = opts.antialias || true
   this.renderer = new THREE.WebGLRenderer(opts)
   this.renderer.setSize(this.width, this.height)
-  this.renderer.setClearColorHex(this.spaceColor, 1.0)
+  this.renderer.setClearColor(new THREE.Color(this.spaceColor), 1.0)
   this.renderer.clear()
 }
 
