@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('make', function() {
       var done = this.async()
-      exec('make', function(err, stdout, stderr) {
+      exec('make browserify', function(err, stdout, stderr) {
         //console.log('[' + new Date() + '] Updated bundle!')
         console.log(stdout)
         console.log(stderr)
