@@ -22,7 +22,9 @@
     "postinstall": "make browserify"
   },
   "dependencies": {
-    "browserify": "~2.35.1"
+    "browserify": "~2.35.1",
+    "tic": "~0.2.1",
+    "raf": "0.0.3"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",
