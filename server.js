@@ -1,16 +1,14 @@
 // https://github.com/nko4/website/blob/master/module/README.md#nodejs-knockout-deploy-check-ins
 require('nko')('f4N75jqVb2ks5NHv');
+var fs = require('fs')
 
 var isProduction = (process.env.NODE_ENV === 'production');
 var http = require('http');
 var port = (isProduction ? 80 : 8000);
 
 http.createServer(function (req, res) {
-  // http://blog.nodeknockout.com/post/35364532732/protip-add-the-vote-ko-badge-to-your-app
-  var voteko = '<iframe src="http://nodeknockout.com/iframe/cool-ladies-gif" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>';
-
   res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end('<html><body>' + voteko + '</body></html>\n');
+  fs.createReadStream('app/index.html').pipe(res)
 }).listen(port, function(err) {
   if (err) { console.error(err); process.exit(-1); }
 
