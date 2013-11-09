@@ -11,8 +11,13 @@ module.exports = function(grunt) {
   })
 
   grunt.registerTask('make', function() {
-      exec('make')
-      console.log('[' + new Date() + '] Updated bundle!')
+      var done = this.async()
+      exec('make', function(err, stdout, stderr) {
+        //console.log('[' + new Date() + '] Updated bundle!')
+        console.log(stdout)
+        console.log(stderr)
+        done()
+      })
   })
 
   grunt.loadNpmTasks('grunt-contrib-watch');
