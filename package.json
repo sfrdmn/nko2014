@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
+    "postinstall": "cd client && make"
   },
   "repository": {
     "type": "git",
