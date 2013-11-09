@@ -25,7 +25,7 @@
     "browserify": "~2.35.1",
     "tic": "~0.2.1",
     "raf": "0.0.3",
-    "voxel-audio": "https://github.com/sfrdmn/voxel-audio/tarball/master",
+    "voxel-audio": "~0.1.0",
     "gl-matrix": "~2.0.0",
     "three": "~0.58.10"
   },
