@@ -34,7 +34,6 @@ Stars.prototype.initStars = function() {
     vertex.multiplyScalar( r )
 
     starsGeometry[ 1 ].vertices.push( vertex )
-    console.log('woah!')
   }
 
   var stars
