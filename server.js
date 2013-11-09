@@ -8,7 +8,7 @@ var port = (isProduction ? 80 : 8000);
 
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
-  fs.createReadStream('app/index.html').pipe(res)
+  fs.createReadStream(__dirname + '/app/index.html').pipe(res)
 }).listen(port, function(err) {
   if (err) { console.error(err); process.exit(-1); }
 
