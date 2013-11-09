@@ -9,8 +9,6 @@ var isProduction = (process.env.NODE_ENV === 'production');
 var http = require('http');
 var port = (isProduction ? 80 : 8000);
 
-//var staticHandler = connect.static('client/static')
-
 var router = urlrouter(function(app) {
   app.get('/', function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -20,8 +18,8 @@ var router = urlrouter(function(app) {
 
 var middleware = connect()
     .use(router)
-    .use(connect.static(__dirname + '/client/public'))
-    .use(connect.directory(__dirname + '/client/public'))
+    .use(connect.static(__dirname + '/client/static'))
+    .use(connect.directory(__dirname + '/client/static'))
 
 http.createServer(middleware).listen(port, function(err) {
   if (err) { console.error(err); process.exit(-1); }
