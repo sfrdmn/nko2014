@@ -13,7 +13,7 @@ function View(three, opts) {
   this.height = opts.height ||  window.innerHeight
   this.aspectRatio = opts.aspectRatio || this.width / this.height
   this.nearPlane = opts.nearPlane || 1
-  this.farPlane = opts.farPlane || 1e6
+  this.farPlane = opts.farPlane || 1e10
   this.spaceColor = opts.spaceColor || 0x000000
   this.ortho = opts.ortho
   this.camera = this.ortho

@@ -15,6 +15,7 @@ var GameAudio = require('./game-audio.js')
 var View = require('./view.js')
 var Planet = require('./planet.js')
 var Stars = require('./stars.js')
+var Skybox = require('./skybox.js') 
 
 function Game(opts) {
   opts = opts || {}

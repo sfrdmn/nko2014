@@ -12,7 +12,7 @@ inherits(Stars, EventEmitter)
 Stars.prototype.initStars = function() {
   var i,
       THREE = this.game.THREE,
-      width = this.game.width,
+      width = this.game.view.width,
       r = width * 2,
       starsGeometry = [ new THREE.Geometry(), new THREE.Geometry() ]
 
