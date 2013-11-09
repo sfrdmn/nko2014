@@ -19,7 +19,7 @@
     }
   ],
   "scripts": {
-    "postinstall": "make browserify"
+    "postinstall": "make deploy"
   },
   "dependencies": {
     "browserify": "~2.35.1",
