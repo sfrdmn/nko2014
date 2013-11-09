@@ -1,0 +1,21 @@
+{
+  "name": "lovely-boys-nko2013",
+  "version": "0.1.0",
+  "main": "index.js",
+  "description": "lovely boys all up in nko2013",
+  "homepage": "http://nodeknockout.com/teams/cool-ladies-gif",
+  "bugs": "https://github.com/nko4/cool-ladies-gif/issues",
+  "author": {
+    "name": "Sean Fridman",
+    "url": "www.seanfridman.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nko4/cool-ladies-gif"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
