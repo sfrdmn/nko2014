@@ -45,10 +45,11 @@ textarea {
   min-height: 1em;
   z-index: 1;
   background: rgba(0,0,50,.6);
-  padding: 1em;
+  padding: 20px;
   opacity: 0;
   color: #FFF;
   font-family: monospace;
+  border-radius: 2px;
 }
 
 ::-webkit-input-placeholder {
@@ -71,6 +72,7 @@ input, textarea, button {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  border-radius: 2px;
 }
 
 .dialog-c input,
@@ -108,32 +110,29 @@ input, textarea, button {
 }
 
 .dialog-c .info {
-  font-size: .75em;
+  font-size: .875em;
   line-height: 1.2;
   color: rgba(10,10,140,.95);
+  text-shadow: 0 1px 3px black;
 }
 
-.dialog-c.login-dialog-c form {
-  width: 260px;
-  margin: .5em auto;
-}
 
-.dialog-c.login-dialog-c input, 
+.dialog-c.login-dialog-c input,
 .dialog-c.login-dialog-c button,
 .dialog-c.login-dialog-c .info {
   width: 260px;
-  margin: .5em;
+  margin: .5em auto;
   display: block;
   text-align: center;
 }
 
 .dialog-c.login-dialog-c {
-  width: 500px;
+  width: 300px;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -250px;
-  margin-top: -250px;
+  margin-top: -120px;
+  margin-left: -170px;
   text-align: center;
 }
 
