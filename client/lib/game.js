@@ -64,21 +64,70 @@ function Game(opts) {
   // this.loader = new ResourceLoader()
   // this.audio = new GameAudio(this.loader)
   // this.loader.on('load', this.onLoaded.bind(this))
-  this.zoomAnimation()
+  //this.zoomAnimation()
+  this.startAnimation()
 }
 inherits(Game, EventEmitter)
 
 Game.prototype.startAnimation = function() {
-//   var self = this
-//   var cameraPos = this.camera.position
-//   var time = 1000;
-//   var t1 = new TWEEN.Tween({x: cameraPos.x, y: cameraPos.y})
-//     .to({
-//   this.rotateTween = new TWEEN.Tween({
-//     x: cameraPos.x,
-//     y: cameraPos.y
-//   })
-//   .
+  var self = this
+  var cameraPos = this.camera.position
+  radius = cameraPos.z
+  var time = 1000 * 30;
+  var rotate1 = new TWEEN.Tween({x: 0, z: radius})
+    .to({ x: -radius, z: 0}, time)
+    .onComplete(function() {
+      this.x = 0
+      this.z = radius
+    })
+    .onUpdate(function() {
+      self.camera.position.setX(this.x)
+      self.camera.position.setZ(this.z)
+      self.camera.lookAt(new THREE.Vector3(0, 0, 0))
+    })
+  var rotate2 = new TWEEN.Tween({x: -radius, z: 0})
+    .to({ x: 0, z: -radius}, time)
+    .onComplete(function() {
+      this.x = -radius
+      this.z = 0
+    })
+    .onUpdate(function() {
+      self.camera.position.setX(this.x)
+      self.camera.position.setZ(this.z)
+      self.camera.lookAt(new THREE.Vector3(0, 0, 0))
+    })
+  var rotate3 = new TWEEN.Tween({x: 0, z: -radius})
+    .to({ x: radius, z: 0}, time)
+    .onComplete(function() {
+      this.x = 0
+      this.z = -radius
+    })
+    .onUpdate(function() {
+      self.camera.position.setX(this.x)
+      self.camera.position.setZ(this.z)
+      self.camera.lookAt(new THREE.Vector3(0, 0, 0))
+    })
+  var rotate4 = new TWEEN.Tween({x: radius, z: 0})
+    .to({ x: 0, z: radius}, time)
+    .onComplete(function() {
+      this.x = radius
+      this.z = 0
+    })
+    .onUpdate(function() {
+      self.camera.position.setX(this.x)
+      self.camera.position.setZ(this.z)
+      self.camera.lookAt(new THREE.Vector3(0, 0, 0))
+    })
+    rotate1.chain(rotate2)
+    rotate2.chain(rotate3)
+    rotate3.chain(rotate4)
+    // rotate4.chain(rotate1)
+    rotate1.interpolation(TWEEN.Interpolation.Bezier)
+    rotate1.easing(TWEEN.Easing.Sinusoidal.InOut)
+    rotate4.onComplete(function() {
+      rotate1.start()
+    }.bind(this))
+    rotate1.start()
 }
 
 Game.prototype.zoomAnimation = function() {
