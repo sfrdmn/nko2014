@@ -5,7 +5,10 @@ var TWEEN = require('tween.js')
 var voxaudio = require('voxel-audio')
 
 var FILENAMES = {
-  'piano3': {
+  'pin': {
+    type: '.ogg'
+  },
+  'Login': {
     type: '.ogg'
   },
   'tronfinal': {
@@ -23,7 +26,7 @@ inherits(GameAudio, EventEmitter)
 GameAudio.prototype.startPosAudio = function(game) {
   voxaudio.initGameAudio(game)
   this.posAudio = new voxaudio.PositionAudio({
-    url: getAudioURL('piano3'),
+    url: getAudioURL('pin'),
     startingPosition: [0, 0, 0],
     coneOuterAngle : 360,
     coneInnerAngle : 360,

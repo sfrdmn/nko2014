@@ -3,6 +3,7 @@ var EventEmitter = require('events').EventEmitter
 var elClass = require('element-class')
 
 var getTemplate = require('./template.js')
+var audio = require('./game-audio.js')()
 
 function LoginView() {
   this.el = getTemplate('tmpl-login')
@@ -26,6 +27,7 @@ LoginView.prototype.onSubmit = function(e) {
   e.preventDefault()
   elClass(this.el).remove('fade-in')
   elClass(this.el).add('fade-out')
+  audio.get('Login').play()
   this.emit('login', this.userInput.value, this.passInput.value)
 }
 

@@ -77,6 +77,7 @@ Game.prototype.startGame = function() {
   this.zoomAnimation(function() {
     this.controls.enabled = true
     this.notice = new NoticeView()
+    this.audio.startPosAudio(this)
   }.bind(this))
 }
 
