@@ -15,8 +15,11 @@ body {
 
 iframe {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 5px;
+  left: 5px;
+  background: rgba(0,0,150,.8);
+  padding: 4px;
+  border-radius: 2px;
 }
 
 a,
@@ -177,4 +180,17 @@ h1 {
 
 .chat-c .message.incoming {
   text-align: left;
+}
+
+.spinner {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  z-index: 3;
+  pointer-events: none;
+  background: transparent url(/images/blue-spinner.gif) no-repeat 50% 50%;
 }
