@@ -17,9 +17,12 @@ var DIR = 'sound/'
 
 function GameAudio(game) {
   this.preload()
-  this.get('tronfinal').play()
+}
+inherits(GameAudio, EventEmitter)
+
+GameAudio.prototype.startPosAudio = function(game) {
   voxaudio.initGameAudio(game)
-  var bg = new voxaudio.PositionAudio({
+  this.posAudio = new voxaudio.PositionAudio({
     url: getAudioURL('piano3'),
     startingPosition: [0, 0, 0],
     coneOuterAngle : 360,
@@ -27,11 +30,10 @@ function GameAudio(game) {
     refDistance : 100,
     loop: true
   })
-  bg.load(function() {
-    bg.play()
-  })
+  this.posAudio.load(function() {
+    this.posAudio.play()
+  }.bind(this))
 }
-inherits(GameAudio, EventEmitter)
 
 GameAudio.prototype.has = function(name) {
   return typeof this.cache[name] !== 'undefined'
@@ -63,10 +65,24 @@ GameAudio.prototype.get = function(name) {
 
 GameAudio.prototype.preload = function() {
   this.cache = {}
-  Object.keys(FILENAMES).forEach(function(name) {
+  var filenames = Object.keys(FILENAMES)
+  this.numFiles = filenames.length
+  this.numLoaded = 0
+  filenames.forEach(function(name) {
     var audio = new AudioWrapper(name)
     audio.load()
+    this.trackLoaded(audio)
     this.cache[name] = audio
+  }.bind(this))
+}
+
+GameAudio.prototype.trackLoaded = function(audio) {
+  audio.on('load', function() {
+    this.numLoaded++
+    if (this.numFiles === this.numLoaded) {
+      this.loaded = true
+      this.emit('load')
+    }
   }.bind(this))
 }
 
@@ -129,6 +145,7 @@ AudioWrapper.prototype.stop = function() {
 AudioWrapper.prototype.onLoad = function() {
   console.log('Loaded audio file!', this.url)
   this.loaded = true
+  this.emit('load')
   if (this.playOnLoad)
     this.play()
 }
@@ -159,8 +176,10 @@ function getAudioType(name) {
   return FILENAMES[name].type
 }
 
-module.exports = GameAudio
-
+var instance = new GameAudio()
+module.exports = function() {
+  return instance
+}
 module.exports.FILENAMES = FILENAMES
 module.exports.DIR = DIR
 module.exports.getAudioURL = getAudioURL
