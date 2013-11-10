@@ -15,9 +15,26 @@ var p2pBroker = new PeerServer({
 })
 
 var router = urlrouter(function(app) {
+
+  // Get client
   app.get('/', function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.writeHead(200, {'Content-Type': 'text/html'})
     fs.createReadStream(__dirname + '/client/index.html').pipe(res)
+  })
+
+  // Hack to allow polling of connected peers
+  app.get('/peer', function(req, res) {
+    var clients = p2pBroker._clients
+    var response = {
+      ids: []
+    }
+    Object.keys(clients).forEach(function(key) {
+      Object.keys(clients[key]).forEach(function(id) {
+        response.ids.push(id)
+      })
+    })
+    res.writeHead(200, {'Content-Type': 'application/json'})
+    res.end(JSON.stringify(response))
   })
 })
 
