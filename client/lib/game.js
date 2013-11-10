@@ -69,9 +69,16 @@ function Game(opts) {
 inherits(Game, EventEmitter)
 
 Game.prototype.startAnimation = function() {
-  // this.rotateTween = new TWEEN.Tween({
-  //   x: this.camera.position.x,
-  //   y: this.camera.position.y
+//   var self = this
+//   var cameraPos = this.camera.position
+//   var time = 1000;
+//   var t1 = new TWEEN.Tween({x: cameraPos.x, y: cameraPos.y})
+//     .to({
+//   this.rotateTween = new TWEEN.Tween({
+//     x: cameraPos.x,
+//     y: cameraPos.y
+//   })
+//   .
 }
 
 Game.prototype.zoomAnimation = function() {
