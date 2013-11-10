@@ -1,3 +1,7 @@
+var inherits = require('util').inherits
+var EventEmitter = require('events').EventEmitter
+var TWEEN = require('tween.js')
+
 var voxaudio = require('voxel-audio')
 
 var FILENAMES = {
@@ -13,7 +17,7 @@ var DIR = 'sound/'
 
 function GameAudio(game) {
   this.preload()
-  this.play('tron2')
+  this.get('tron2').play()
   voxaudio.initGameAudio(game)
   var bg = new voxaudio.PositionAudio({
     url: getAudioURL('piano3'),
@@ -27,6 +31,7 @@ function GameAudio(game) {
     bg.play()
   })
 }
+inherits(GameAudio, EventEmitter)
 
 GameAudio.prototype.has = function(name) {
   return typeof this.cache[name] !== 'undefined'
@@ -36,20 +41,25 @@ GameAudio.prototype.get = function(name) {
   return this.cache[name]
 }
 
-GameAudio.prototype.play = function(name) {
-  if (this.has(name))
-    this.get(name).play()
-}
+// GameAudio.prototype.setVolume = function(name, volume) {
+//   if (this.has(name))
+//     this.get(name).volume = volume
+// }
 
-GameAudio.prototype.pause = function(name) {
-  if (this.has(name))
-    this.get(name).pause()
-}
+// GameAudio.prototype.play = function(name) {
+//   if (this.has(name))
+//     this.get(name).play()
+// }
 
-GameAudio.prototype.stop = function(name) {
-  if (this.has(name))
-    this.get(name).stop()
-}
+// GameAudio.prototype.pause = function(name) {
+//   if (this.has(name))
+//     this.get(name).pause()
+// }
+
+// GameAudio.prototype.stop = function(name) {
+//   if (this.has(name))
+//     this.get(name).stop()
+// }
 
 GameAudio.prototype.preload = function() {
   this.cache = {}
@@ -67,7 +77,32 @@ function AudioWrapper(name) {
 
   audio.addEventListener('canplaythrough', this.onLoad.bind(this))
   audio.addEventListener('error', this.onError.bind(this))
+  audio.addEventListener('ended', this.onEnded.bind(this))
   audio.setAttribute('src', url)
+}
+inherits(AudioWrapper, EventEmitter)
+
+AudioWrapper.prototype.fadeOut = function(ms) {
+  ms = ms || 1000
+  var self = this
+  this.tween = new TWEEN.Tween({volume: this.volume})
+    .to({volume: 0}, ms)
+    .onUpdate(function() {
+      self.volume = this.volume
+    })
+    .start()
+}
+
+AudioWrapper.prototype.fadeIn = function(ms, endVolume) {
+  ms = ms || 1000
+  endVolume = endVolume || 1
+  var self = this
+  this.tween = new TWEEN.Tween({volume: this.volume})
+    .to({volume: endVolume}, ms)
+    .onUpdate(function() {
+      self.volume = this.volume
+    })
+    .start()
 }
 
 AudioWrapper.prototype.load = function() {
@@ -91,16 +126,6 @@ AudioWrapper.prototype.stop = function() {
   this.audio.currentTime = 0
 }
 
-Object.defineProperty(AudioWrapper.prototype, 'volume', {
-  enumerable: true,
-  get: function() {
-    return this.audio.volume
-  },
-  set: function(volume) {
-    this.audio.volume = volume
-  }
-})
-
 AudioWrapper.prototype.onLoad = function() {
   console.log('Loaded audio file!', this.url)
   this.loaded = true
@@ -111,6 +136,20 @@ AudioWrapper.prototype.onLoad = function() {
 AudioWrapper.prototype.onError = function() {
   console.error('Could not load audio file!', this.url)
 }
+
+AudioWrapper.prototype.onEnded = function() {
+  this.emit('ended')
+}
+
+Object.defineProperty(AudioWrapper.prototype, 'volume', {
+  enumerable: true,
+  get: function() {
+    return this.audio.volume
+  },
+  set: function(volume) {
+    this.audio.volume = volume
+  }
+})
 
 function getAudioURL(name) {
   return DIR + name + FILENAMES[name].type

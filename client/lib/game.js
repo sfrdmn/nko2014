@@ -6,6 +6,7 @@ var tic = require('tic')()
 var requestAnimationFrame = require('raf')
 var Stats = require('./stats.js')
 var THREE = require('three')
+var TWEEN = require('tween.js')
 require('./orbit-controls.js')(THREE)
 require('./particle-system-material.js')(THREE)
 
@@ -18,6 +19,8 @@ var Beam = require('./beam.js')
 // Will convert sha sum into unique universal position
 // This defines the magnitude? of the coordinate space
 var UPOS_MAGNITUDE = 4
+// Animation FPS
+var FPS = 24
 
 function Game(opts) {
   opts = opts || {}
@@ -30,6 +33,7 @@ function Game(opts) {
   this.view.bindToScene(this.scene)
   this.camera = this.view.getCamera()
   this.timer = this.initializeTimer((opts.tickFPS || 16))
+  this.tic = tic
   this.paused = false
   this.controls = new THREE.OrbitControls(this.camera)
   // so it works with voxel-audio
@@ -39,6 +43,9 @@ function Game(opts) {
 
   // Calculate a universal position from id
   this.initUPos()
+
+  // Only update tween once a millisecond
+  // tic.interval(this.updateTween.bind(this), (1 / FPS) * 1000)
 
   // var ambientlight = new THREE.AmbientLight(0x00ffff)
   // this.scene.add(ambientlight)
@@ -59,6 +66,10 @@ function Game(opts) {
 }
 inherits(Game, EventEmitter)
 
+Game.prototype.updateTween = function() {
+  TWEEN.update()
+}
+
 Game.prototype.initUPos = function() {
   var vec = new THREE.Vector3()
   vec.setX(parseInt(this.id.slice(0, UPOS_MAGNITUDE), 16))
@@ -77,6 +88,8 @@ Game.prototype.tick = function(delta) {
   tic.tick(delta)
 
   this.emit('tick', delta)
+
+  TWEEN.update()
 
   // if (!this.controls) return
   // var playerPos = this.playerPosition()

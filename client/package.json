@@ -33,7 +33,8 @@
     "peerjs-browserify-unofficial": "~0.2.8-alpha4",
     "xhr": "~1.2.3",
     "array-diff": "0.0.1",
-    "element-class": "~0.1.0"
+    "element-class": "~0.1.0",
+    "tween.js": "~0.12.0"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",

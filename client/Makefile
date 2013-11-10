@@ -1,9 +1,9 @@
 browserify:
-	./node_modules/.bin/browserify -x three -o public/js/bundle.js \
+	./node_modules/.bin/browserify -x three -x 'tween.js' -o public/js/bundle.js \
 			-r './lib/app.js:app'
 
 three:
-	./node_modules/.bin/browserify -r three -o public/js/three-bundle.js
+	./node_modules/.bin/browserify -r three -r 'tween.js' -o public/js/three-bundle.js
 
 deploy: three browserify
 
