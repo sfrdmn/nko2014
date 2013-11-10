@@ -14,5 +14,39 @@ body {
 
 iframe {
   position: absolute;
-  top: 0;
+  top: 10px;
+  left: 10px;
+}
+
+.notice-c {
+  background-color: red;
+  padding: 1em;
+  width: 400px;
+  min-height: 1em;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 50;
+}
+
+.chat-c .viewport {
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.chat-c .viewport {
+  background-color: #ffffff;
+}
+
+.chat-c input {
+  display: block;
+  width: 100%;
+}
+
+.chat-c .message.outgoing {
+  text-align: right;
+}
+
+.chat-c .message.incoming {
+  text-align: left;
 }
