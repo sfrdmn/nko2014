@@ -6,7 +6,7 @@ html, body {
 body {
   font-size: 16px;
   font-family: monospace;
-  line-height: 1.5em;
+  line-height: 1.5;
   background-color: #000;
   overflow: hidden;
   position: relative;
@@ -42,14 +42,10 @@ textarea {
 }
 
 .dialog-c {
-  padding: 1em;
   min-height: 1em;
   z-index: 1;
-  opacity: 0;
   background: rgba(0,0,50,.6);
   padding: 1em;
-  min-height: 1em;
-  z-index: 1;
   opacity: 0;
   color: #FFF;
   font-family: monospace;
@@ -71,6 +67,12 @@ placeholder {
   color: rgba(10,10,140,.75);
 }
 
+input, textarea, button {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 .dialog-c input,
 .dialog-c button {
   font-family: monospace;
@@ -78,11 +80,11 @@ placeholder {
   border: 2px solid rgba(10,10,140,.95);
   font-size: 1em;
   padding: .5em;
+  box-sizing: ;
 }
 
 .dialog-c input {
   box-shadow: inset 0 2px 7px black;
-  max-width: 170px;
   color: rgba(250,250,250,.5);
 }
 
@@ -103,14 +105,27 @@ placeholder {
 .dialog-c button:hover {
   background-color: rgba(10,10,140,.95);
   color: rgba(250,250,250,.95);
-  
 }
 
 .dialog-c .info {
   font-size: .75em;
+  line-height: 1.2;
   color: rgba(10,10,140,.95);
 }
 
+.dialog-c.login-dialog-c form {
+  width: 260px;
+  margin: .5em auto;
+}
+
+.dialog-c.login-dialog-c input, 
+.dialog-c.login-dialog-c button,
+.dialog-c.login-dialog-c .info {
+  width: 260px;
+  margin: .5em;
+  display: block;
+  text-align: center;
+}
 
 .dialog-c.login-dialog-c {
   width: 500px;
