@@ -24,6 +24,7 @@ var FPS = 24
 
 function Game(opts) {
   opts = opts || {}
+  opts.statsDisabled = true
   this.id = opts.id
   this.THREE = THREE
   this.view = new View(THREE, {
@@ -80,7 +81,7 @@ Game.prototype.startGame = function() {
 Game.prototype.startAnimation = function() {
   var self = this
   var cameraPos = this.camera.position
-  radius = cameraPos.z
+  var radius = this.radius = cameraPos.z
   var time = 1000 * 30;
   var rotate1 = this.rotateTween = new TWEEN.Tween({x: 0, z: radius})
     .to({ x: -radius, z: 0}, time)
@@ -146,8 +147,22 @@ Game.prototype.zoomAnimation = function(callback) {
   var h = Math.sqrt(Math.pow(cameraPos.x, 2) + Math.pow(cameraPos.y, 2))
   var ratio = zFinal / cameraPos.z
   var yFinal = Math.round(cameraPos.y * ratio)
-  this.zoomTween = new TWEEN.Tween({
-    z: cameraPos.z,
+  var origin = new TWEEN.Tween({
+    x: cameraPos.x,
+    z: cameraPos.z
+  })
+  .to({
+    x: 0,
+    z: this.radius
+  }, 2000)
+  .easing(TWEEN.Easing.Sinusoidal.InOut)
+  .onUpdate(function() {
+    self.camera.position.setX(this.x)
+    self.camera.position.setZ(this.z)
+    self.camera.lookAt(new THREE.Vector3(0, 0, 0))
+  })
+  var zoom = new TWEEN.Tween({
+    z: this.radius,
     y: cameraPos.y
   })
   .to({z: zFinal, y: yFinal}, 1000 * 15)
@@ -157,7 +172,8 @@ Game.prototype.zoomAnimation = function(callback) {
   })
   .onComplete(callback)
   .easing(TWEEN.Easing.Sinusoidal.InOut)
-  .start()
+  origin.chain(zoom)
+  origin.start()
 }
 
 Game.prototype.updateTween = function() {
