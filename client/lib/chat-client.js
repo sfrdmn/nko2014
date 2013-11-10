@@ -68,11 +68,13 @@ ChatClient.prototype.receiveChat = function(msg) {
 }
 
 ChatClient.prototype.sendChat = function() {
-  var inputEl = this.el.querySelector('input')
-  var msg = inputEl.value
-  inputEl.value = ''
-  this.addMessage(msg, 'outgoing')
-  this.sendData(msg)
+  if (this.conn) {
+    var inputEl = this.el.querySelector('input')
+    var msg = inputEl.value
+    inputEl.value = ''
+    this.addMessage(msg, 'outgoing')
+    this.sendData(msg)
+  }
 }
 
 ChatClient.prototype.onKeyDown = function(e) {
