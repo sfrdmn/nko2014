@@ -75,6 +75,12 @@ input, textarea, button {
   font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
 }
 
+h1 {
+  font-size: 28px;
+  margin: 0 0 .5em 0;
+  color: rgba(10,10,140,.75)
+}
+
 .dialog-c input,
 .dialog-c button {
   background-color: rgba(0,0,30,.5);
@@ -129,7 +135,7 @@ input, textarea, button {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -120px;
+  margin-top: -170px;
   margin-left: -170px;
   text-align: center;
 }
