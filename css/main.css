@@ -5,7 +5,7 @@ html, body {
 
 body {
   font-size: 16px;
-  font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+  font-family: Consolas, "Courier New", Courier, monospace;
   line-height: 1.5;
   background-color: #000;
   overflow: hidden;
@@ -131,12 +131,12 @@ h1 {
 }
 
 .dialog-c.login-dialog-c {
-  width: 300px;
+  width: 320px;
   position: absolute;
   top: 50%;
   left: 50%;
   margin-top: -170px;
-  margin-left: -170px;
+  margin-left: -180px;
   text-align: center;
 }
 
