@@ -69,12 +69,20 @@ function Game(opts) {
 }
 inherits(Game, EventEmitter)
 
+Game.prototype.startGame = function() {
+  this.rotateTween.stop()
+  this.audio.get('tron2').fadeOut(5000)
+  this.zoomAnimation(function() {
+    this.controls.enabled = true
+  }.bind(this))
+}
+
 Game.prototype.startAnimation = function() {
   var self = this
   var cameraPos = this.camera.position
   radius = cameraPos.z
   var time = 1000 * 30;
-  var rotate1 = new TWEEN.Tween({x: 0, z: radius})
+  var rotate1 = this.rotateTween = new TWEEN.Tween({x: 0, z: radius})
     .to({ x: -radius, z: 0}, time)
     .onComplete(function() {
       this.x = 0
@@ -130,7 +138,7 @@ Game.prototype.startAnimation = function() {
     rotate1.start()
 }
 
-Game.prototype.zoomAnimation = function() {
+Game.prototype.zoomAnimation = function(callback) {
   var self = this
   var cameraPos = this.camera.position
   var zFinal = 200
@@ -147,6 +155,7 @@ Game.prototype.zoomAnimation = function() {
     self.camera.position.setZ(this.z)
     self.camera.position.setY(this.y)
   })
+  .onComplete(callback)
   .easing(TWEEN.Easing.Sinusoidal.InOut)
   .start()
 }
