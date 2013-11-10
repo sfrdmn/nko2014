@@ -29,7 +29,9 @@
     "gl-matrix": "~2.0.0",
     "three": "~0.58.10",
     "rng": "~0.2.0",
-    "crypto-browserify": "~1.0.6"
+    "crypto-browserify": "~1.0.6",
+    "peerjs-browserify-unofficial": "~0.2.8-alpha4",
+    "xhr": "~1.2.3"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",
