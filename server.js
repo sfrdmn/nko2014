@@ -4,12 +4,15 @@ require('nko')('f4N75jqVb2ks5NHv');
 var connect = require('connect')
 var fs = require('fs')
 var urlrouter = require('urlrouter')
+var PeerServer = require('peer').PeerServer
 
 var isProduction = (process.env.NODE_ENV === 'production');
 var http = require('http');
 var port = (isProduction ? 80 : 8000);
 
-//var staticHandler = connect.static('client/static')
+var p2pBroker = new PeerServer({
+  port: 9000
+})
 
 var router = urlrouter(function(app) {
   app.get('/', function(req, res) {
