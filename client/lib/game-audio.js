@@ -8,7 +8,7 @@ var FILENAMES = {
   'piano3': {
     type: '.ogg'
   },
-  'tron2': {
+  'tronfinal': {
     type: '.ogg'
   }
 }
@@ -17,7 +17,7 @@ var DIR = 'sound/'
 
 function GameAudio(game) {
   this.preload()
-  this.get('tron2').play()
+  this.get('tronfinal').play()
   voxaudio.initGameAudio(game)
   var bg = new voxaudio.PositionAudio({
     url: getAudioURL('piano3'),

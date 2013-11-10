@@ -72,7 +72,7 @@ inherits(Game, EventEmitter)
 
 Game.prototype.startGame = function() {
   this.rotateTween.stop()
-  this.audio.get('tron2').fadeOut(5000)
+  this.audio.get('tronfinal').fadeOut(5000)
   this.zoomAnimation(function() {
     this.controls.enabled = true
   }.bind(this))
