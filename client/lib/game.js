@@ -14,7 +14,8 @@ var GameAudio = require('./game-audio.js')
 var View = require('./view.js')
 var Planet = require('./planet.js')
 var Stars = require('./stars.js')
-var Beam = require('./beam.js')
+// var Beam = require('./beam.js')
+var NoticeView = require('./notice-view')
 
 // Will convert sha sum into unique universal position
 // This defines the magnitude? of the coordinate space
@@ -75,6 +76,7 @@ Game.prototype.startGame = function() {
   this.audio.get('tronfinal').fadeOut(5000)
   this.zoomAnimation(function() {
     this.controls.enabled = true
+    this.notice = new NoticeView()
   }.bind(this))
 }
 
