@@ -14,13 +14,13 @@ Planet.prototype.tick = function() {
 
 Planet.prototype.createPlanetMesh = function() {
   var game = this.game,
-      radius = 100,
+      THREE = game.THREE,
+      radius = 10,
       segments = 16,
       rings = 16,
-      material = new game.THREE.MeshLambertMaterial({color: 0x0000ff})
-
-  return new game.THREE.Mesh(
-      new game.THREE.SphereGeometry(radius, segments, rings),
+      material = new THREE.MeshLambertMaterial({color: 0x0000ff})
+  return new THREE.Mesh(
+      new THREE.SphereGeometry(radius, segments, rings),
       material)
 }
 

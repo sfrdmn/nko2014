@@ -16,6 +16,7 @@ var GameAudio = require('./game-audio.js')
 var View = require('./view.js')
 var Planet = require('./planet.js')
 var Stars = require('./stars.js')
+var Beam = require('./beam.js')
 // var Skybox = require('./skybox.js')
 
 function Game(opts) {
@@ -35,14 +36,18 @@ function Game(opts) {
   this.items = []
   this.initializeRendering(opts)
 
-  var ambientlight = new THREE.AmbientLight(0x00ffff)
-  this.scene.add(ambientlight)
+  // var ambientlight = new THREE.AmbientLight(0x00ffff)
+  // this.scene.add(ambientlight)
+  var hemiLight = new THREE.HemisphereLight(0xffffff, 0.3)
+  this.scene.add(hemiLight)
   this.audio = new GameAudio(this)
   this.planet = new Planet(this)
   this.stars = new Stars(this)
+  this.beam = new Beam(this)
 
-  this.scene.add(new THREE.GridHelper(this.width, this.width))
-  this.scene.add(new THREE.AxisHelper(this.width))
+  this.scene.add(new THREE.GridHelper(this.width * 1e6, this.width * 1e6))
+  this.scene.add(new THREE.AxisHelper(this.width * 1e6))
+  // this.scene.add(new THREE.CameraHelper(this.camera))
 
   // this.loader = new ResourceLoader()
   // this.audio = new GameAudio(this.loader)
