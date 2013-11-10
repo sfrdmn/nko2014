@@ -21,6 +21,9 @@ function Client(user, pass) {
   })
   this.manager = new PeerManager(this.peer)
   this.login = new LoginView()
+  this.login.on('login', function() {
+    this.game.startGame()
+  }.bind(this))
   // this.chat = new ChatClient(this.manager)
   // document.body.appendChild(this.chat.el)
 }
