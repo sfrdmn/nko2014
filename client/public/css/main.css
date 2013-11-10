@@ -5,6 +5,7 @@ html, body {
 
 body {
   font-size: 16px;
+  font-family: monospace;
   line-height: 1.5em;
   background-color: #000;
   overflow: hidden;
@@ -16,6 +17,16 @@ iframe {
   position: absolute;
   top: 10px;
   left: 10px;
+}
+
+a,
+input,
+button,
+textarea {
+  -webkit-transition: color border-color background-color, 0.15s;
+  -moz-transition: color border-color background-color, 0.15s;
+  -o-transition: color border-color background-color, 0.15s;
+  transition: color, border-color, background-color, 0.15s;
 }
 
 .fade {
@@ -35,16 +46,80 @@ iframe {
   min-height: 1em;
   z-index: 1;
   opacity: 0;
+  background: rgba(0,0,50,.6);
+  padding: 1em;
+  min-height: 1em;
+  z-index: 1;
+  opacity: 0;
+  color: #FFF;
+  font-family: monospace;
 }
 
+::-webkit-input-placeholder {
+  color: rgba(10,10,140,.75);
+}
+
+::-moz-placeholder {
+  color: rgba(10,10,140,.75);
+}
+
+:-ms-input-placeholder {
+  color: rgba(10,10,140,.75);
+}
+
+placeholder {
+  color: rgba(10,10,140,.75);
+}
+
+.dialog-c input,
+.dialog-c button {
+  font-family: monospace;
+  background-color: rgba(0,0,30,.5);
+  border: 2px solid rgba(10,10,140,.95);
+  font-size: 1em;
+  padding: .5em;
+}
+
+.dialog-c input {
+  box-shadow: inset 0 2px 7px black;
+  max-width: 170px;
+  color: rgba(250,250,250,.5);
+}
+
+.dialog-c input:hover,
+.dialog-c input:focus,
+.dialog-c input:active {
+  box-shadow: inset 0 2px 7px black;
+  color: rgba(250,250,250,.95);
+  border: 2px solid rgba(10,10,140,1);
+  background-color: rgba(0,0,10,.5);
+}
+
+.dialog-c button {
+  background-color: rgba(10,10,140,.75);
+  color: rgba(250,250,250,.75);
+  cursor: pointer;
+}
+.dialog-c button:hover {
+  background-color: rgba(10,10,140,.95);
+  color: rgba(250,250,250,.95);
+  
+}
+
+.dialog-c .info {
+  font-size: .75em;
+  color: rgba(10,10,140,.95);
+}
+
+
 .dialog-c.login-dialog-c {
-  background-color: red;
   width: 500px;
   position: absolute;
   top: 50%;
   left: 50%;
   margin-top: -250px;
   margin-top: -250px;
+  text-align: center;
 }
 
 .chat-c .viewport {
@@ -53,7 +128,7 @@ iframe {
 }
 
 .chat-c .viewport {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .chat-c input {
