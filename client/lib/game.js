@@ -27,7 +27,7 @@ function Game(opts) {
   this.id = opts.id
   this.THREE = THREE
   this.view = new View(THREE, {
-    position: new THREE.Vector3(0, 1000, 1000)
+    position: new THREE.Vector3(0, 1000, 1000000)
   })
   this.scene = new THREE.Scene()
   this.view.bindToScene(this.scene)
@@ -38,6 +38,7 @@ function Game(opts) {
   this.controls = new THREE.OrbitControls(this.camera)
   // so it works with voxel-audio
   this.controls.velocity = new THREE.Vector3(0, 0, 0)
+  this.controls.enabled = false
   this.items = []
   this.initializeRendering(opts)
 
@@ -54,7 +55,7 @@ function Game(opts) {
   this.audio = new GameAudio(this)
   this.planet = new Planet(this)
   this.stars = new Stars(this)
-  this.beam = new Beam(this)
+  // this.beam = new Beam(this)
 
   this.scene.add(new THREE.GridHelper(this.width * 1e6, this.width * 1e6))
   this.scene.add(new THREE.AxisHelper(this.width * 1e6))
@@ -63,8 +64,36 @@ function Game(opts) {
   // this.loader = new ResourceLoader()
   // this.audio = new GameAudio(this.loader)
   // this.loader.on('load', this.onLoaded.bind(this))
+  this.zoomAnimation()
 }
 inherits(Game, EventEmitter)
+
+Game.prototype.startAnimation = function() {
+  // this.rotateTween = new TWEEN.Tween({
+  //   x: this.camera.position.x,
+  //   y: this.camera.position.y
+}
+
+Game.prototype.zoomAnimation = function() {
+  var self = this
+  var cameraPos = this.camera.position
+  var zFinal = 200
+  // hypontenuse
+  var h = Math.sqrt(Math.pow(cameraPos.x, 2) + Math.pow(cameraPos.y, 2))
+  var ratio = zFinal / cameraPos.z
+  var yFinal = Math.round(cameraPos.y * ratio)
+  this.zoomTween = new TWEEN.Tween({
+    z: cameraPos.z,
+    y: cameraPos.y
+  })
+  .to({z: zFinal, y: yFinal}, 1000 * 15)
+  .onUpdate(function() {
+    self.camera.position.setZ(this.z)
+    self.camera.position.setY(this.y)
+  })
+  .easing(TWEEN.Easing.Sinusoidal.InOut)
+  .start()
+}
 
 Game.prototype.updateTween = function() {
   TWEEN.update()

@@ -18,15 +18,33 @@ iframe {
   left: 10px;
 }
 
-.notice-c {
-  background-color: red;
+.fade {
+  transition: opacity 2s;
+}
+
+.fade.fade-in {
+  opacity: 1;
+}
+
+.fade.fade-out {
+  opacity: 0;
+}
+
+.dialog-c {
   padding: 1em;
-  width: 400px;
   min-height: 1em;
+  z-index: 1;
+  opacity: 0;
+}
+
+.dialog-c.login-dialog-c {
+  background-color: red;
+  width: 500px;
   position: absolute;
-  bottom: 0;
-  right: 0;
-  z-index: 50;
+  top: 50%;
+  left: 50%;
+  margin-top: -250px;
+  margin-top: -250px;
 }
 
 .chat-c .viewport {

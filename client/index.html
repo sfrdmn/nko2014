@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <head>
+  <meta charset="utf-8">
   <link type="text/css" rel="stylesheet" href="css/main.css">
   <script src='js/three-bundle.js'></script>
   <script src='js/bundle.js'></script>
-  <script type="x-text/template" id="tmpl-chat">
-    <div class="notice-c">
-      <div class="notice">
+
+  <script type="text/x-template" id="tmpl-notice">
+    <div class="dialog-c notice-dialog-c">
+      <div class="dialog notice-dialog">
+        <div class="message"></div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="tmpl-chat">
+    <div class="dialog-c chat-dialog-c">
+      <div class="dialog chat-dialog">
         <div class="chat-c">
           <div class="viewport"></div>
-          <input autofocus="true" type="text"></input>
+          <input autofocus="true" type="text">
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="tmpl-login">
+    <div class="dialog-c login-dialog-c">
+      <div class="dialog login-dialog">
+        <div class="login">
+          <form>
+            <input type="text" id="username">
+            <input type="password" id="password">
+            <button type="submit" id="btn-login">Login</button>
+          </form>
+        </div>
+        <div class="info">
+          <p>There's no sign up, just enter a username and password which you'll remember</p>
         </div>
       </div>
     </div>
