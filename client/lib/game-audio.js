@@ -8,7 +8,10 @@ var FILENAMES = {
   'pin': {
     type: '.ogg'
   },
-  'Login': {
+  'spacezoomout': {
+    type: '.ogg'
+  },
+  'start': {
     type: '.ogg'
   },
   'tronfinal': {

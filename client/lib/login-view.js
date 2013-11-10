@@ -27,7 +27,10 @@ LoginView.prototype.onSubmit = function(e) {
   e.preventDefault()
   elClass(this.el).remove('fade-in')
   elClass(this.el).add('fade-out')
-  audio.get('Login').play()
+  audio.get('start').volume = 0.5
+  audio.get('start').play()
+  audio.get('spacezoomout').volume = 0.3
+  audio.get('spacezoomout').play()
   this.emit('login', this.userInput.value, this.passInput.value)
 }
 
