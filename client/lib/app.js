@@ -1,5 +1,9 @@
 var Client = require('./client.js')
 
-module.exports.start = function() {
-  new Client(Math.random() + '', Math.random() + '')
+function App() {
+  this.client = new Client(Math.random() + '', Math.random() + '')
+}
+
+module.exports = function() {
+  return new App
 }
