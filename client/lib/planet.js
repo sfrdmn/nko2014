@@ -18,7 +18,15 @@ Planet.prototype.createPlanetMesh = function() {
       radius = 10,
       segments = 16,
       rings = 16,
-      material = new THREE.MeshLambertMaterial({color: 0x0000ff})
+      texture = THREE.ImageUtils.loadTexture('images/rock.jpg'),
+      // material = THREE.MeshPhongMaterial({
+      //   map: texture,
+      //   bumpMap: texture
+      // })
+      material = new THREE.MeshLambertMaterial({
+        map: texture,
+        color: 0x0000ff
+      })
   return new THREE.Mesh(
       new THREE.SphereGeometry(radius, segments, rings),
       material)
