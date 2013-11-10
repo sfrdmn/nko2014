@@ -28,7 +28,8 @@
     "voxel-audio": "~0.1.0",
     "gl-matrix": "~2.0.0",
     "three": "~0.58.10",
-    "rng": "~0.2.0"
+    "rng": "~0.2.0",
+    "crypto-browserify": "~1.0.6"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",

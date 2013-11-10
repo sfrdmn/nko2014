@@ -5,22 +5,23 @@ var requestAnimationFrame = require('raf')
 var inherits = require('util').inherits
 var EventEmitter = require('events').EventEmitter
 var Stats = require('./stats.js')
-// var glMatrix = require('gl-matrix')
-// var vector = glMatrix.vec3
 var THREE = require('three')
 require('./orbit-controls.js')(THREE)
 require('./particle-system-material.js')(THREE)
 
-//var ResourceLoader = require('./resource-loader.js')
 var GameAudio = require('./game-audio.js')
 var View = require('./view.js')
 var Planet = require('./planet.js')
 var Stars = require('./stars.js')
 var Beam = require('./beam.js')
-// var Skybox = require('./skybox.js')
+
+// Will convert sha sum into unique universal position
+// This defines the magnitude? of the coordinate space
+var UPOS_MAGNITUDE = 4
 
 function Game(opts) {
   opts = opts || {}
+  this.id = opts.id
   this.THREE = THREE
   this.view = new View(THREE, {
     position: new THREE.Vector3(0, 1000, 1000)
@@ -35,6 +36,9 @@ function Game(opts) {
   this.controls.velocity = new THREE.Vector3(0, 0, 0)
   this.items = []
   this.initializeRendering(opts)
+
+  // Calculate a universal position from id
+  this.initUPos()
 
   // var ambientlight = new THREE.AmbientLight(0x00ffff)
   // this.scene.add(ambientlight)
@@ -54,6 +58,14 @@ function Game(opts) {
   // this.loader.on('load', this.onLoaded.bind(this))
 }
 inherits(Game, EventEmitter)
+
+Game.prototype.initUPos = function() {
+  var vec = new THREE.Vector3()
+  vec.setX(parseInt(this.id.slice(0, UPOS_MAGNITUDE), 16))
+  vec.setY(parseInt(this.id.slice(UPOS_MAGNITUDE, UPOS_MAGNITUDE * 2), 16))
+  vec.setZ(parseInt(this.id.slice(UPOS_MAGNITUDE * 2, UPOS_MAGNITUDE * 3), 16))
+  console.log(vec)
+}
 
 Game.prototype.tick = function(delta) {
   for(var i = 0, len = this.items.length; i < len; ++i) {
