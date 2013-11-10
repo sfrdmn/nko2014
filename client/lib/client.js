@@ -15,13 +15,16 @@ function Client(user, pass) {
     id: id
   })
   this.game.appendTo(document.body)
-  this.peer = new Peer(id, {
-    host: '/',
-    port: '9000'
-  })
-  this.manager = new PeerManager(this.peer)
+  // this.peer = new Peer(id, {
+  //   host: '/',
+  //   port: '9000'
+  // })
+  // this.manager = new PeerManager(this.peer)
   this.login = new LoginView()
   this.login.on('login', function() {
+    this.login.el.addEventListener('webkitTransitionEnd', function() {
+      this.login.el.style.display = 'none'
+    }.bind(this))
     this.game.startGame()
   }.bind(this))
   // this.chat = new ChatClient(this.manager)
