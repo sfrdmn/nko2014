@@ -3,6 +3,7 @@ var Peer = require('peerjs-browserify-unofficial').Peer
 
 var Game = require('./game.js')
 var PeerManager = require('./peer-manager.js')
+var ChatClient = require('./chat-client.js')
 
 function Client(user, pass) {
   var sha = this.sha = crypto.createHash('sha256')
@@ -17,7 +18,9 @@ function Client(user, pass) {
     host: '/',
     port: '9000'
   })
-  this.manager = new PeerManager(id)
+  this.manager = new PeerManager(this.peer)
+  this.chat = new ChatClient(this.manager)
+  document.body.appendChild(this.chat.el)
 }
 
 module.exports = Client

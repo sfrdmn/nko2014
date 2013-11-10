@@ -1,9 +1,9 @@
 // https://github.com/maxogden/voxel-engine
 
-var tic = require('tic')()
-var requestAnimationFrame = require('raf')
 var inherits = require('util').inherits
 var EventEmitter = require('events').EventEmitter
+var tic = require('tic')()
+var requestAnimationFrame = require('raf')
 var Stats = require('./stats.js')
 var THREE = require('three')
 require('./orbit-controls.js')(THREE)
