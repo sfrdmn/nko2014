@@ -4,27 +4,50 @@ var elClass = require('element-class')
 
 var getTemplate = require('./template.js')
 
-function NoticeView() {
-  this.el = getTemplate('tmpl-notice')
-  this.message = this.el.querySelector('.message')
-  this.message.innerHTML = 'You are a planet.'
-  document.body.appendChild(this.el)
-  elClass(this.el).add('fade')
-  setTimeout(this.onShow.bind(this), 2500)
-  setTimeout(this.onHide.bind(this), 7500)
+function NoticeView (msg, options) {
+  options = options || {}
+  var self = this
+  var delay = options.delay || 1
+  var duration = options.duration || 7000
+  var el = this.el = document.querySelector('.notice-dialog-c')
+  if (!el) {
+    el = getTemplate('tmpl-notice')
+    elClass(el).add('fade')
+    document.body.appendChild(el)
+  }
+  this.message = el.querySelector('.message')
+  this.message.innerHTML = msg
+  setTimeout(show, delay)
+  setTimeout(hide, delay + duration)
+
+  function setTransitionEndListener (el, fn) {
+    setTimeout(function () {
+      el.addEventListener('webkitTransitionEnd', onTransitionEnd)
+      el.addEventListener('transitionend', onTransitionEnd)
+      function onTransitionEnd () {
+        el.removeEventListener('webkitTransitionEnd', onTransitionEnd)
+        el.removeEventListener('transitionend', onTransitionEnd)
+        fn.apply(null, arguments)
+      }
+    }, 0)
+  }
+
+  function show () {
+    elClass(el).remove('fade-out')
+    elClass(el).add('fade-in')
+    setTransitionEndListener(el, function () {
+      self.emit('shown')
+    })
+  }
+
+  function hide () {
+    elClass(el).remove('fade-in')
+    elClass(el).add('fade-out')
+    setTransitionEndListener(el, function () {
+      self.emit('hidden')
+    })
+  }
 }
 inherits(NoticeView, EventEmitter)
-
-NoticeView.prototype.onShow = function() {
-  elClass(this.el).add('fade-in')
-}
-
-NoticeView.prototype.onHide = function() {
-  elClass(this.el).remove('fade-in')
-  elClass(this.el).add('fade-out')
-  this.el.addEventListener('webkitEndTransition', function() {
-    this.el.style.display = 'none'
-  }.bind(this))
-}
 
 module.exports = NoticeView

@@ -71,12 +71,20 @@ function Game(opts) {
 }
 inherits(Game, EventEmitter)
 
-Game.prototype.startGame = function() {
+Game.prototype.startGame = function () {
   this.rotateTween.stop()
   this.audio.get('tronfinal').fadeOut(5000)
-  this.zoomAnimation(function() {
+  this.zoomAnimation(function () {
     this.controls.enabled = true
-    this.notice = new NoticeView()
+    new NoticeView('You are a planet.', {
+      delay: 5000,
+      duration: 5000
+    }).on('hidden', function () {
+      new NoticeView('Drag and zoom to check yourself out.', {
+        delay: 500,
+        duration: 5000
+      })
+    })
     this.audio.startPosAudio(this)
   }.bind(this))
 }
