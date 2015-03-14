@@ -1,6 +1,33 @@
+var eases = require('eases')
 var inherits = require('util').inherits
 var EventEmitter = require('events').EventEmitter
+var THREE = require('three')
 var TWEEN = require('tween.js')
+
+var createQuadInOut = function (min, max) {
+  return function (val) {
+    if (val >= max) {
+      return 1
+    } else if (val <= min) {
+      return 0
+    } else {
+      return linear((val - min) / (max - min))
+    }
+  }
+}
+
+var createEase = function (name, min, max) {
+  var ease = eases[name] || function (val) { return val }
+  return function (val) {
+    if (val >= max) {
+      return 1
+    } else if (val <= min) {
+      return 0
+    } else {
+      return ease((val - min) / (max - min))
+    }
+  }
+}
 
 var voxaudio = require('voxel-audio')
 
@@ -27,18 +54,10 @@ function GameAudio(game) {
 inherits(GameAudio, EventEmitter)
 
 GameAudio.prototype.startPosAudio = function(game) {
-  voxaudio.initGameAudio(game)
-  this.posAudio = new voxaudio.PositionAudio({
-    url: getAudioURL('pin'),
-    startingPosition: [0, 0, 0],
-    coneOuterAngle : 360,
-    coneInnerAngle : 360,
-    refDistance : 100,
-    loop: true
+  var posAudio = this.posAudio = new SimplePositionalAudio(game, this.get('pin'), {
+    range: [500, 2000]
   })
-  this.posAudio.load(function() {
-    this.posAudio.play()
-  }.bind(this))
+  posAudio.play()
 }
 
 GameAudio.prototype.has = function(name) {
@@ -48,26 +67,6 @@ GameAudio.prototype.has = function(name) {
 GameAudio.prototype.get = function(name) {
   return this.cache[name]
 }
-
-// GameAudio.prototype.setVolume = function(name, volume) {
-//   if (this.has(name))
-//     this.get(name).volume = volume
-// }
-
-// GameAudio.prototype.play = function(name) {
-//   if (this.has(name))
-//     this.get(name).play()
-// }
-
-// GameAudio.prototype.pause = function(name) {
-//   if (this.has(name))
-//     this.get(name).pause()
-// }
-
-// GameAudio.prototype.stop = function(name) {
-//   if (this.has(name))
-//     this.get(name).stop()
-// }
 
 GameAudio.prototype.preload = function() {
   this.cache = {}
@@ -180,6 +179,34 @@ function getAudioURL(name) {
 
 function getAudioType(name) {
   return FILENAMES[name].type
+}
+
+/**
+ * Simple positional audio effect which updates
+ * volume as a function of distance from sound source.
+ */
+function SimplePositionalAudio (game, audio, options) {
+  options = options || {}
+  if (!audio || !game) return
+  var pos = this.pos = options.pos || new THREE.Vector3(0, 0, 0)
+  var range = this._range = options.range || [10, 1000]
+  var ease = this._ease = createEase('linear', range[0], range[1])
+  this._audio = audio
+  this._game = game
+
+  game.on('tick', tick)
+
+  function tick () {
+    var cameraPos = game.camera.position
+    var distance = cameraPos.distanceTo(pos)
+    console.log(distance, 1 - ease(distance))
+    audio.volume = 1 - ease(distance)
+  }
+}
+inherits(SimplePositionalAudio, EventEmitter)
+
+SimplePositionalAudio.prototype.play = function () {
+  this._audio.play()
 }
 
 var instance = new GameAudio()
