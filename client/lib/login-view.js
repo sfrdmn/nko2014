@@ -31,7 +31,8 @@ LoginView.prototype.onSubmit = function(e) {
   audio.get('start').play()
   audio.get('spacezoomout').volume = 0.3
   audio.get('spacezoomout').play()
-  this.emit('login', this.userInput.value, this.passInput.value)
+  // this.emit('login', this.userInput.value, this.passInput.value)
+  this.emit('login')
 }
 
 module.exports = LoginView
