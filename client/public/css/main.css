@@ -193,5 +193,5 @@ h1 {
   margin-left: -50px;
   z-index: 3;
   pointer-events: none;
-  background: transparent url(/images/blue-spinner.gif) no-repeat 50% 50%;
+  background: transparent url(../images/blue-spinner.gif) no-repeat 50% 50%;
 }
